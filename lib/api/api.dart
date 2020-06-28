@@ -3,21 +3,23 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 class CallApi{
-  final String _url = 'http://logintut.localhost/api/';
+  final String _url = 'https://00eab2fa16c9.ngrok.io/api/';
 
   postData(data, apiUrl) async {
     var fullUrl = _url + apiUrl + await _getToken();
+    print(data);
+    print(fullUrl);
     return await http.post(
         fullUrl,
         body: jsonEncode(data),
-        headers: _setHeaders()
+        headers: {"Accept": "application/json","content-type": "application/json"}
     );
   }
   getData(apiUrl) async {
     var fullUrl = _url + apiUrl + await _getToken();
     return await http.get(
         fullUrl,
-        headers: _setHeaders()
+        headers: {"Accept": "application/json","content-type": "application/json"}
     );
   }
 

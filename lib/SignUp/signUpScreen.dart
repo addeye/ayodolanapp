@@ -1,12 +1,11 @@
 import 'dart:convert';
 
+import 'package:ayodolan/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:ayodolan/Home/homeScreen.dart';
 import 'package:ayodolan/Login/loginScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ayodolan/api/api.dart';
-
-
 
 class SignUp extends StatefulWidget {
   @override
@@ -14,11 +13,12 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController mailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController nama = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController tgl_lahir = TextEditingController();
+  TextEditingController alamat = TextEditingController();
+  TextEditingController no_telp = TextEditingController();
 
   bool _isLoading = false;
 
@@ -65,7 +65,7 @@ class _SignUpState extends State<SignUp> {
 
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
-                              controller: firstNameController,
+                              controller: nama,
                               cursorColor: Color(0xFF9b9b9b),
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
@@ -73,36 +73,17 @@ class _SignUpState extends State<SignUp> {
                                   Icons.account_circle,
                                   color: Colors.grey,
                                 ),
-                                hintText: "Firstname",
+                                hintText: "namawisatawan",
                                 hintStyle: TextStyle(
                                     color: Color(0xFF9b9b9b),
                                     fontSize: 15,
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
-                            TextField(
-                              style: TextStyle(color: Color(0xFF000000)),
-                              controller: lastNameController,
-                              cursorColor: Color(0xFF9b9b9b),
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.account_circle,
-                                  color: Colors.grey,
-                                ),
-                                hintText: "Lastname",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFF9b9b9b),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ),
-
                               // Email ////////////
-
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
-                              controller: mailController,
+                              controller: email,
                               cursorColor: Color(0xFF9b9b9b),
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
@@ -110,7 +91,7 @@ class _SignUpState extends State<SignUp> {
                                   Icons.mail,
                                   color: Colors.grey,
                                 ),
-                                hintText: "Email ",
+                                hintText: "email ",
                                 hintStyle: TextStyle(
                                     color: Color(0xFF9b9b9b),
                                     fontSize: 15,
@@ -123,7 +104,7 @@ class _SignUpState extends State<SignUp> {
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
                               cursorColor: Color(0xFF9b9b9b),
-                              controller: passwordController,
+                              controller: password,
                               keyboardType: TextInputType.text,
                               obscureText: true,
                               decoration: InputDecoration(
@@ -138,9 +119,46 @@ class _SignUpState extends State<SignUp> {
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
+
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
-                              controller: phoneController,
+                              controller: tgl_lahir,
+                              cursorColor: Color(0xFF9b9b9b),
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.mobile_screen_share,
+                                  color: Colors.grey,
+                                ),
+                                hintText: "birth",
+                                hintStyle: TextStyle(
+                                    color: Color(0xFF9b9b9b),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            ),
+
+                            TextField(
+                              style: TextStyle(color: Color(0xFF000000)),
+                              controller: alamat,
+                              cursorColor: Color(0xFF9b9b9b),
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.mobile_screen_share,
+                                  color: Colors.grey,
+                                ),
+                                hintText: "adress",
+                                hintStyle: TextStyle(
+                                    color: Color(0xFF9b9b9b),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            ),
+
+                            TextField(
+                              style: TextStyle(color: Color(0xFF000000)),
+                              controller: no_telp,
                               cursorColor: Color(0xFF9b9b9b),
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
@@ -225,15 +243,17 @@ class _SignUpState extends State<SignUp> {
     });
 
     var data = {
-      'firstName' : firstNameController.text,
-      'lastName' : lastNameController.text,
-      'email' : mailController.text,
-      'password' : passwordController.text,
-      'phone' : phoneController.text,
+      'nama' : nama.text,
+      'email' : email.text,
+      'password' : password.text,
+      'tgl_lahir' : tgl_lahir.text,
+      'alamat' : alamat.text,
+      'no_telp' : no_telp.text,
     };
 
-    var res = await CallApi().postData(data, 'register');
-    var body = json.decode(res.body);
+    var res = await CallApi().postData(data, 'user/register');
+    //print(res.body.toString());
+    var body = json.decode(res.body.toString());
     if(body['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
@@ -242,11 +262,8 @@ class _SignUpState extends State<SignUp> {
       Navigator.push(
           context,
           new MaterialPageRoute(
-              builder: (context) => Home()));
+              builder: (context) => HomePage()));
     }
-
-
-
 
     setState(() {
       _isLoading = false;

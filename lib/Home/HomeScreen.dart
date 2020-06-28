@@ -6,6 +6,7 @@ import 'package:ayodolan/EditProfile/editProfileScreen.dart';
 import 'package:ayodolan/Login/loginScreen.dart';
 import 'package:ayodolan/api/api.dart';
 
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -40,8 +41,7 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-
-                //// 1st card/////
+                ////////////// 1st card///////////
                 Card(
                   elevation: 4.0,
                   color: Colors.white,
@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        /// first name ///
+                        ////////////  first name ////////////
 
                         Card(
                           elevation: 4.0,
@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
                           ),
                         ),
 
-                        //// last name //
+                        ////////////// last name //////////////
                         Card(
                           elevation: 4.0,
                           color: Colors.white,
@@ -162,7 +162,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                        ///  Email//
+                        ////////////  Email/////////
                         Card(
                           elevation: 4.0,
                           color: Colors.white,
@@ -215,7 +215,7 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-                        ////phone ///
+                        ////////////////////// phone ///////////
                         Card(
                           elevation: 4.0,
                           color: Colors.white,
@@ -269,13 +269,13 @@ class _HomeState extends State<Home> {
                           ),
                         ),
 
-                        //////end  part//
+                        ////////////end  part////////////
                       ],
                     ),
                   ),
                 ),
 
-                //// Button///
+                /////////////// Button////////////
                 Padding(
                   padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
                   child: Row(
@@ -311,7 +311,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
 
-                      /// logout//
+                      ////////////// logout//////////
 
                       Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -347,20 +347,13 @@ class _HomeState extends State<Home> {
     );
   }
   void logout() async{
-    // logout from the server ...
-    var res = await CallApi().getData('logout');
-    var body = json.decode(res.body);
-    if(body['success']){
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.remove('user');
-      localStorage.remove('token');
-      Navigator.push(
-          context,
-          new MaterialPageRoute(
-              builder: (context) => LogIn()));
-    }
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.remove('user');
+    localStorage.remove('token');
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => LogIn()));
 
   }
-
-
 }

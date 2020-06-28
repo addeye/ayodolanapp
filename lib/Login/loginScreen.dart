@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ayodolan/Home/HomeScreen.dart';
+import 'package:ayodolan/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:ayodolan/SignUp/signUpScreen.dart';
 import 'package:ayodolan/api/api.dart';
@@ -17,8 +18,8 @@ class _LogInState extends State<LogIn> {
   bool _isLoading = false;
 
 
-  TextEditingController mailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   ScaffoldState scaffoldState;
   _showMsg(msg) { //
     final snackBar = SnackBar(
@@ -75,7 +76,7 @@ class _LogInState extends State<LogIn> {
 
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
-                              controller: mailController,
+                              controller: email,
                               cursorColor: Color(0xFF9b9b9b),
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
@@ -96,7 +97,7 @@ class _LogInState extends State<LogIn> {
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
                               cursorColor: Color(0xFF9b9b9b),
-                              controller: passwordController,
+                              controller: password,
                               keyboardType: TextInputType.text,
                               obscureText: true,
                               decoration: InputDecoration(
@@ -182,12 +183,12 @@ class _LogInState extends State<LogIn> {
     });
 
     var data = {
-      'email' : mailController.text,
-      'password' : passwordController.text
+      'email' : email.text,
+      'password' : password.text,
     };
-
-    var res = await CallApi().postData(data, 'login');
-    var body = json.decode(res.body);
+    print(data);
+  var res = await CallApi().postData(data, 'user/login');
+    var body = json.decode(res.body.toString());
     if(body['success']){
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
@@ -195,13 +196,12 @@ class _LogInState extends State<LogIn> {
       Navigator.push(
           context,
           new MaterialPageRoute(
-              builder: (context) => Home()
+              builder: (context) => HomePage()
           )
       );
     }else{
       _showMsg(body['message']);
     }
-
 
     setState(() {
       _isLoading = false;
