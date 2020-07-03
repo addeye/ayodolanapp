@@ -80,7 +80,7 @@ class _SignUpState extends State<SignUp> {
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
-                              // Email ////////////
+                            // Email ////////////
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
                               controller: email,
@@ -183,7 +183,9 @@ class _SignUpState extends State<SignUp> {
                                     padding: EdgeInsets.only(
                                         top: 8, bottom: 8, left: 10, right: 10),
                                     child: Text(
-                                      _isLoading ? 'Creating...' : 'Create account',
+                                      _isLoading
+                                          ? 'Creating...'
+                                          : 'Create account',
                                       textDirection: TextDirection.ltr,
                                       style: TextStyle(
                                         color: Colors.white,
@@ -197,9 +199,8 @@ class _SignUpState extends State<SignUp> {
                                   disabledColor: Colors.grey,
                                   shape: new RoundedRectangleBorder(
                                       borderRadius:
-                                      new BorderRadius.circular(20.0)),
-                                  onPressed: _isLoading ? null :  _handleLogin
-                              ),
+                                          new BorderRadius.circular(20.0)),
+                                  onPressed: _isLoading ? null : _handleLogin),
                             ),
                           ],
                         ),
@@ -237,39 +238,35 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+
   void _handleLogin() async {
     setState(() {
       _isLoading = true;
     });
 
     var data = {
-      'nama' : nama.text,
-      'email' : email.text,
-      'password' : password.text,
-      'tgl_lahir' : tgl_lahir.text,
-      'alamat' : alamat.text,
-      'no_telp' : no_telp.text,
+      'nama': nama.text,
+      'email': email.text,
+      'password': password.text,
+      'tgl_lahir': tgl_lahir.text,
+      'alamat': alamat.text,
+      'no_telp': no_telp.text,
     };
 
     var res = await CallApi().postData(data, 'user/register');
-    //print(res.body.toString());
+    print(res.body.toString());
     var body = json.decode(res.body.toString());
-    if(body['success']){
+    if (body['success']) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
       localStorage.setString('user', json.encode(body['user']));
 
       Navigator.push(
-          context,
-          new MaterialPageRoute(
-              builder: (context) => HomePage()));
+          context, new MaterialPageRoute(builder: (context) => HomePage()));
     }
 
     setState(() {
       _isLoading = false;
     });
-
-
-
   }
 }
