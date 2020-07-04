@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:ayodolan/Home/home.dart';
+import 'package:ayodolan/Page/home.dart';
 import 'package:flutter/material.dart';
-import 'package:ayodolan/Home/homeScreen.dart';
 import 'package:ayodolan/Login/loginScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ayodolan/api/api.dart';

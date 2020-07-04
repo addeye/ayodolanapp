@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:ayodolan/Home/HomeScreen.dart';
-import 'package:ayodolan/Home/home.dart';
+import 'package:ayodolan/Page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:ayodolan/SignUp/signUpScreen.dart';
 import 'package:ayodolan/api/api.dart';
@@ -13,15 +12,13 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-
-
   bool _isLoading = false;
-
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   ScaffoldState scaffoldState;
-  _showMsg(msg) { //
+  _showMsg(msg) {
+    //
     final snackBar = SnackBar(
       content: Text(msg),
       action: SnackBarAction(
@@ -33,6 +30,7 @@ class _LogInState extends State<LogIn> {
     );
     Scaffold.of(context).showSnackBar(snackBar);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +118,7 @@ class _LogInState extends State<LogIn> {
                                   padding: EdgeInsets.only(
                                       top: 8, bottom: 8, left: 10, right: 10),
                                   child: Text(
-                                    _isLoading? 'Loging...' : 'Login',
+                                    _isLoading ? 'Loging...' : 'Login',
                                     textDirection: TextDirection.ltr,
                                     style: TextStyle(
                                       color: Colors.white,
@@ -134,9 +132,8 @@ class _LogInState extends State<LogIn> {
                                 disabledColor: Colors.grey,
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
-                                    new BorderRadius.circular(20.0)),
+                                        new BorderRadius.circular(20.0)),
                                 onPressed: _isLoading ? null : _login,
-
                               ),
                             ),
                           ],
@@ -176,41 +173,30 @@ class _LogInState extends State<LogIn> {
     );
   }
 
-  void _login() async{
-
+  void _login() async {
     setState(() {
       _isLoading = true;
     });
 
     var data = {
-      'email' : email.text,
-      'password' : password.text,
+      'email': email.text,
+      'password': password.text,
     };
     print(data);
-  var res = await CallApi().postData(data, 'user/login');
+    var res = await CallApi().postData(data, 'user/login');
     var body = json.decode(res.body.toString());
-    if(body['success']){
+    if (body['success']) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', body['token']);
       localStorage.setString('user', json.encode(body['user']));
       Navigator.push(
-          context,
-          new MaterialPageRoute(
-              builder: (context) => HomePage()
-          )
-      );
-    }else{
+          context, new MaterialPageRoute(builder: (context) => HomePage()));
+    } else {
       _showMsg(body['message']);
     }
 
     setState(() {
       _isLoading = false;
     });
-
-
-
-
   }
-
 }
-

@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ayodolan/EditProfile/editProfileScreen.dart';
+// import 'package:ayodolan/EditProfile/editProfileScreen.dart';
 import 'package:ayodolan/Login/loginScreen.dart';
-import 'package:ayodolan/api/api.dart';
-
+// import 'package:ayodolan/api/api.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,8 +26,8 @@ class _HomeState extends State<Home> {
     setState(() {
       userData = user;
     });
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +64,7 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(10)),
                           child: Container(
                             padding:
-                            EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                                EdgeInsets.only(left: 15, top: 10, bottom: 10),
                             width: MediaQuery.of(context).size.width,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +93,9 @@ class _HomeState extends State<Home> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 35),
                                   child: Text(
-                                    userData!= null ? '${userData['firstName']}' : '',
+                                    userData != null
+                                        ? '${userData['firstName']}'
+                                        : '',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Color(0xFF9b9b9b),
@@ -119,7 +120,7 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(10)),
                           child: Container(
                             padding:
-                            EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                                EdgeInsets.only(left: 15, top: 10, bottom: 10),
                             width: MediaQuery.of(context).size.width,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +149,9 @@ class _HomeState extends State<Home> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 35),
                                   child: Text(
-                                    userData!= null ? '${userData['lastName']}' : '',
+                                    userData != null
+                                        ? '${userData['lastName']}'
+                                        : '',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Color(0xFF9b9b9b),
@@ -172,7 +175,7 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(10)),
                           child: Container(
                             padding:
-                            EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                                EdgeInsets.only(left: 15, top: 10, bottom: 10),
                             width: MediaQuery.of(context).size.width,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,7 +204,9 @@ class _HomeState extends State<Home> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 35),
                                   child: Text(
-                                    userData!= null ? '${userData['email']}' : '',
+                                    userData != null
+                                        ? '${userData['email']}'
+                                        : '',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Color(0xFF9b9b9b),
@@ -225,7 +230,7 @@ class _HomeState extends State<Home> {
                               borderRadius: BorderRadius.circular(10)),
                           child: Container(
                             padding:
-                            EdgeInsets.only(left: 15, top: 10, bottom: 10),
+                                EdgeInsets.only(left: 15, top: 10, bottom: 10),
                             width: MediaQuery.of(context).size.width,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,7 +259,9 @@ class _HomeState extends State<Home> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 35),
                                   child: Text(
-                                    userData!= null ? '${userData['phone']}' : '',
+                                    userData != null
+                                        ? '${userData['phone']}'
+                                        : '',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Color(0xFF9b9b9b),
@@ -302,12 +309,7 @@ class _HomeState extends State<Home> {
                           color: Color(0xFFFF835F),
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(20.0)),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (context) => Edit()));
-                          },
+                          onPressed: () {},
                         ),
                       ),
 
@@ -333,8 +335,7 @@ class _HomeState extends State<Home> {
                             color: Color(0xFFFF835F),
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(20.0)),
-                            onPressed: logout
-                        ),
+                            onPressed: logout),
                       ),
                     ],
                   ),
@@ -346,14 +347,12 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-  void logout() async{
+
+  void logout() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove('user');
     localStorage.remove('token');
     Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => LogIn()));
-
+        context, new MaterialPageRoute(builder: (context) => LogIn()));
   }
 }
