@@ -15,9 +15,9 @@ class _SignUpState extends State<SignUp> {
   TextEditingController nama = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  TextEditingController tgl_lahir = TextEditingController();
-  TextEditingController alamat = TextEditingController();
-  TextEditingController no_telp = TextEditingController();
+  // TextEditingController tgl_lahir = TextEditingController();
+  // TextEditingController alamat = TextEditingController();
+  // TextEditingController no_telp = TextEditingController();
 
   bool _isLoading = false;
 
@@ -72,7 +72,7 @@ class _SignUpState extends State<SignUp> {
                                   Icons.account_circle,
                                   color: Colors.grey,
                                 ),
-                                hintText: "namawisatawan",
+                                hintText: "Nama Lengkap...",
                                 hintStyle: TextStyle(
                                     color: Color(0xFF9b9b9b),
                                     fontSize: 15,
@@ -90,7 +90,7 @@ class _SignUpState extends State<SignUp> {
                                   Icons.mail,
                                   color: Colors.grey,
                                 ),
-                                hintText: "email ",
+                                hintText: "Alamat email... ",
                                 hintStyle: TextStyle(
                                     color: Color(0xFF9b9b9b),
                                     fontSize: 15,
@@ -111,14 +111,14 @@ class _SignUpState extends State<SignUp> {
                                   Icons.vpn_key,
                                   color: Colors.grey,
                                 ),
-                                hintText: "Password",
+                                hintText: "Password...",
                                 hintStyle: TextStyle(
                                     color: Color(0xFF9b9b9b),
                                     fontSize: 15,
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
-
+                            /*
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
                               controller: tgl_lahir,
@@ -172,7 +172,7 @@ class _SignUpState extends State<SignUp> {
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
-
+                            */
                             // SignUp Button ////
 
                             Padding(
@@ -182,9 +182,7 @@ class _SignUpState extends State<SignUp> {
                                     padding: EdgeInsets.only(
                                         top: 8, bottom: 8, left: 10, right: 10),
                                     child: Text(
-                                      _isLoading
-                                          ? 'Creating...'
-                                          : 'Create account',
+                                      _isLoading ? 'Proses...' : 'Daftar',
                                       textDirection: TextDirection.ltr,
                                       style: TextStyle(
                                         color: Colors.white,
@@ -244,21 +242,19 @@ class _SignUpState extends State<SignUp> {
     });
 
     var data = {
-      'nama': nama.text,
+      'name': nama.text,
       'email': email.text,
       'password': password.text,
-      'tgl_lahir': tgl_lahir.text,
-      'alamat': alamat.text,
-      'no_telp': no_telp.text,
     };
 
-    var res = await CallApi().postData(data, 'user/register');
+    var res = await CallApi().postData(data, 'register');
     print(res.body.toString());
     var body = json.decode(res.body.toString());
-    if (body['success']) {
+    if (body['status']) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setString('token', body['token']);
-      localStorage.setString('user', json.encode(body['user']));
+
+      localStorage.setString('token', body['data']['api_token']);
+      localStorage.setString('user', json.encode(body['data']));
 
       Navigator.push(
           context, new MaterialPageRoute(builder: (context) => HomePage()));
