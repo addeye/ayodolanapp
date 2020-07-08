@@ -183,11 +183,12 @@ class _LogInState extends State<LogIn> {
       'password': password.text,
     };
     print(data);
-    var res = await CallApi().postData(data, 'user/login');
+    var res = await CallApi().postData(data, 'login');
     var body = json.decode(res.body.toString());
-    if (body['success']) {
+    print(body);
+    if (body['status']) {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
-      localStorage.setString('token', body['token']);
+      localStorage.setString('token', body['data']['api_token']);
       localStorage.setString('user', json.encode(body['user']));
       Navigator.push(
           context, new MaterialPageRoute(builder: (context) => HomePage()));

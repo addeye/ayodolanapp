@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CallApi {
-  final String _url = 'https://d086bc592d00.ngrok.io/api/';
+  final String _url = 'https://0b7469125664.ngrok.io/api/';
 
   postData(data, apiUrl) async {
-    var fullUrl = _url + apiUrl + await _getToken();
+    var fullUrl = _url + apiUrl;
     print(data);
     print(fullUrl);
     return await http.post(fullUrl, body: jsonEncode(data), headers: {
@@ -16,17 +16,38 @@ class CallApi {
     });
   }
 
+  postDataAuth(data, apiUrl) async {
+    var fullUrl = _url + apiUrl;
+    print(data);
+    print(fullUrl);
+    return await http.post(fullUrl, body: jsonEncode(data), headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer ' + await _getToken(),
+    });
+  }
+
   getData(apiUrl) async {
-    var fullUrl = _url + apiUrl + await _getToken();
+    var fullUrl = _url + apiUrl;
     return await http.get(fullUrl, headers: {
       "Accept": "application/json",
       "content-type": "application/json"
     });
   }
 
+  getDataAuth(apiUrl) async {
+    var fullUrl = _url + apiUrl;
+    return await http.get(fullUrl, headers: {
+      "Accept": "application/json",
+      "content-type": "application/json",
+      'Authorization': 'Bearer ' + await _getToken(),
+    });
+  }
+
   _getToken() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
-    return '?token=$token';
+    print('this token ' + token);
+    return token;
   }
 }
