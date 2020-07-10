@@ -12,9 +12,12 @@ class FrontPage extends StatefulWidget {
 class _FrontPageState extends State<FrontPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[Bannerslide(), Menu()],
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Container(
+        child: Column(
+          children: <Widget>[Bannerslide(), Menu()],
+        ),
       ),
     );
   }

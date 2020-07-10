@@ -215,17 +215,19 @@ class _FinishBookingState extends State<FinishBooking> {
       'tanggal_liburan': tgl,
       'harga_supir': data['harga_supir'],
       'harga_tour_guide': data['harga_tour_guide'],
-      'harga_paket': data['harga_paket']
+      'harga_paket': data['harga_paket'],
     };
+    // print(datarow);
     var res = await CallApi().postDataAuth(datarow, 'invoice');
     var body = json.decode(res.body.toString());
     print(body);
     if (body['status']) {
-      Navigator.pushReplacement(
+      Navigator.popUntil(context, (route) => route.isFirst);
+      Navigator.push(
           context,
           MaterialPageRoute(
               builder: (BuildContext context) =>
-                  Invoice(transkasiId: body['id'].toString())));
+                  Invoice(transkasiId: body['data']['id'].toString())));
     } else {
       _showMsg(body['message']);
     }

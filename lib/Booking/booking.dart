@@ -52,13 +52,14 @@ class _BookingState extends State<Booking> {
       ),
       body: Container(
         child: Column(
-          children: <Widget>[_info_paket(), _form(), _btn_continue()],
+          children: <Widget>[_infoPaket(), _form(), _btnContinue()],
         ),
       ),
     );
   }
 
-  Widget _info_paket() {
+  // ignore: non_constant_identifier_names
+  Widget _infoPaket() {
     return Card(
       margin: EdgeInsets.all(20.0),
       child: Container(
@@ -127,7 +128,7 @@ class _BookingState extends State<Booking> {
     );
   }
 
-  Widget _btn_continue() {
+  Widget _btnContinue() {
     return Container(
         margin: EdgeInsets.only(top: 10.0),
         child: FlatButton(
