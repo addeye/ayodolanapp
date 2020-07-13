@@ -82,8 +82,12 @@ class _PaketState extends State<Paket> {
               child:
                   const Text('Detail', style: TextStyle(color: Colors.white)),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PaketDetail()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PaketDetail(
+                              paket: item,
+                            )));
               },
             ),
           ],
