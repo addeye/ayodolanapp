@@ -19,6 +19,8 @@ void main() {
 }
 
 class HomePage extends StatefulWidget {
+  String title;
+  HomePage({Key key, this.title}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   final List<String> _title = ['Ayo Dolan Apps', 'My Booking', 'Profile'];
   final List<Widget> _children = [FrontPage(), MyBooking(), ProfilePage()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

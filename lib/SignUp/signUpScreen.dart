@@ -21,6 +21,20 @@ class _SignUpState extends State<SignUp> {
 
   bool _isLoading = false;
 
+  _showMsg(msg) {
+    //
+    final snackBar = SnackBar(
+      content: Text(msg),
+      action: SnackBarAction(
+        label: 'Close',
+        onPressed: () {
+          // Some code to undo the change!
+        },
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -258,6 +272,8 @@ class _SignUpState extends State<SignUp> {
 
       Navigator.push(
           context, new MaterialPageRoute(builder: (context) => HomePage()));
+    } else {
+      _showMsg(data['message']);
     }
 
     setState(() {

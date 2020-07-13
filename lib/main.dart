@@ -13,17 +13,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _isLoggedIn = false;
 
-  @override
-  void initState() {
-    _checkIfLoggedIn();
-    super.initState();
-  }
-
   void _checkIfLoggedIn() async {
     // check if token is there
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var token = localStorage.getString('token');
-    if (token != null) {
+    if (token != '') {
       setState(() {
         _isLoggedIn = true;
       });
@@ -31,12 +25,23 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    this._checkIfLoggedIn();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: _isLoggedIn ? HomePage() : LogIn(),
+        body: _isLoggedIn == true ? HomePage() : LogIn(),
       ),
+      routes: <String, WidgetBuilder>{
+        '/home': (BuildContext context) => HomePage(title: 'home'),
+        '/login': (BuildContext context) => LogIn(title: 'login'),
+      },
+      // initialRoute: '/',
     );
   }
 }
