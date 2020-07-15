@@ -1,5 +1,6 @@
 import 'package:ayodolan/Account/profile_page.dart';
 import 'package:ayodolan/Front/front_page.dart';
+import 'package:ayodolan/Mybooking/listBooking.dart';
 import 'package:ayodolan/contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -24,14 +25,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int curridx = 0;
-  final List<Widget> _children = [FrontPage(), ProfilePage()];
+
+  final List<String> _title = ['Ayo Dolan Apps', 'My Booking', 'Profile'];
+  final List<Widget> _children = [FrontPage(), MyBooking(), ProfilePage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: PrimaryColor,
         elevation: 1.0,
-        title: Text("Ayo Dolan Apps"),
+        title: Text(_title[curridx]),
         automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: BottomAppBar(
@@ -42,15 +45,13 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               iconBtnAppbar(Icon(Icons.home), "Home", 0),
-              iconBtnAppbar(Icon(Icons.person), "Profile", 1),
+              iconBtnAppbar(Icon(Icons.library_books), "My Booking", 1),
+              iconBtnAppbar(Icon(Icons.person), "Profile", 2),
             ],
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: _children[curridx],
-      ),
+      body: _children[curridx],
     );
   }
 
