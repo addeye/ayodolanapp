@@ -7,6 +7,8 @@ import 'package:ayodolan/api/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LogIn extends StatefulWidget {
+  String title;
+  LogIn({Key key, this.title}) : super(key: key);
   @override
   _LogInState createState() => _LogInState();
 }
