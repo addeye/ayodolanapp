@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:ayodolan/Account/profile_photo.dart';
 import 'package:ayodolan/Contants.dart';
-import 'package:ayodolan/Login/loginScreen.dart';
 import 'package:ayodolan/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -23,6 +25,28 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController inputPhone = TextEditingController();
   TextEditingController inputAddress = TextEditingController();
   TextEditingController inputBorn = TextEditingController();
+
+  // Future chooseImage() async {
+  //   setState(() {
+  //     final file = await ImagePicker.getImage(source: ImageSource.gallery);
+  //   });
+  //   setStatus('');
+  // }
+
+  Widget _showImage(photo) {
+    return Container(
+      width: 200.0,
+      height: 200.0,
+      decoration: new BoxDecoration(
+        color: const Color(0xff7c94b6),
+        image: new DecorationImage(
+          image: new NetworkImage(photo),
+          fit: BoxFit.cover,
+        ),
+        borderRadius: new BorderRadius.all(new Radius.circular(100.0)),
+      ),
+    );
+  }
 
   _showMsg(msg) {
     //
@@ -45,19 +69,16 @@ class _ProfilePageState extends State<ProfilePage> {
     print(res.statusCode);
 
     if (res.statusCode == 200) {
-      var body = json.decode(res.body.toString());
-      print(body);
-      setState(() {
-        // Get the JSON data
-        data = body['data'];
-        _setData(data);
-      });
+      return res.body;
+      // var body = json.decode(res.body.toString());
+      // print(body);
+
     } else {
       throw Exception('Failed to load internet');
     }
   }
 
-  Future<void> _setData(item) async {
+  _setData(item) {
     inputName.text = item['name'].toString();
     inputEmail.text = item['email'].toString();
     inputPhone.text =
@@ -66,114 +87,209 @@ class _ProfilePageState extends State<ProfilePage> {
     inputBorn.text = item['born'].toString();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    this.getJSONData();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   this.getJSONData();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        margin: EdgeInsets.all(20),
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: 200.0,
-                height: 200.0,
-                decoration: new BoxDecoration(
-                  color: const Color(0xff7c94b6),
-                  image: new DecorationImage(
-                    image: new NetworkImage(data['photo']),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius:
-                      new BorderRadius.all(new Radius.circular(100.0)),
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                controller: inputName,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.perm_identity),
-                    hintText: "Nama lengkap...",
-                    hintStyle: TextStyle(color: PrimaryColor)),
-              ),
-              TextField(
-                controller: inputEmail,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.email),
-                    hintText: "Alamat email...",
-                    hintStyle: TextStyle(color: PrimaryColor)),
-              ),
-              TextField(
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: inputPhone,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.phone),
-                    hintText: "No telp...",
-                    hintStyle: TextStyle(color: PrimaryColor)),
-              ),
-              TextField(
-                controller: inputBorn,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.date_range),
-                    hintText: "Tanggal Lahir...",
-                    hintStyle: TextStyle(color: PrimaryColor)),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(left: 41.0),
-                  child: TextField(
-                    controller: inputAddress,
-                    maxLines: 2,
-                    decoration: InputDecoration(
-                        icon: null,
-                        hintText: "Alamat...",
-                        hintStyle: TextStyle(color: PrimaryColor)),
+    return FutureBuilder(
+        future: getJSONData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            dynamic response = json.decode(snapshot.data.toString())['data'];
+            print(response['photo']);
+            _setData(response);
+            return SingleChildScrollView(
+              child: Card(
+                  margin: EdgeInsets.all(20),
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      children: <Widget>[
+                        _showImage(response['photo']),
+                        Center(
+                          child: FlatButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => profilPhoto()));
+                              },
+                              child: Text(
+                                "Ganti Foto Saya",
+                                style: TextStyle(
+                                    color: PrimaryColor, fontSize: 18.0),
+                              )),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextField(
+                          controller: inputName,
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.perm_identity),
+                              hintText: "Nama lengkap...",
+                              hintStyle: TextStyle(color: PrimaryColor)),
+                        ),
+                        TextField(
+                          controller: inputEmail,
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.email),
+                              hintText: "Alamat email...",
+                              hintStyle: TextStyle(color: PrimaryColor)),
+                        ),
+                        TextField(
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly
+                          ],
+                          controller: inputPhone,
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.phone),
+                              hintText: "No telp...",
+                              hintStyle: TextStyle(color: PrimaryColor)),
+                        ),
+                        TextField(
+                          controller: inputBorn,
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.date_range),
+                              hintText: "Tanggal Lahir...",
+                              hintStyle: TextStyle(color: PrimaryColor)),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(left: 41.0),
+                            child: TextField(
+                              controller: inputAddress,
+                              maxLines: 2,
+                              decoration: InputDecoration(
+                                  icon: null,
+                                  hintText: "Alamat...",
+                                  hintStyle: TextStyle(color: PrimaryColor)),
+                            )),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            FlatButton(
+                                color: _isLoading ? Colors.grey : PrimaryColor,
+                                textColor: Colors.white,
+                                disabledColor: Colors.grey,
+                                disabledTextColor: Colors.black,
+                                padding: EdgeInsets.all(8.0),
+                                splashColor: Colors.blueAccent,
+                                onPressed: _updateUser,
+                                child: Text(
+                                  _isLoading ? "Proses..." : "Simpan",
+                                  style: TextStyle(fontSize: 20.0),
+                                )),
+                            FlatButton(
+                                color: Colors.grey,
+                                textColor: Colors.white,
+                                disabledColor: Colors.grey,
+                                disabledTextColor: Colors.black,
+                                padding: EdgeInsets.all(8.0),
+                                splashColor: Colors.blueAccent,
+                                onPressed: () {
+                                  _isLoading
+                                      ? print('loading..')
+                                      : _reloadData();
+                                },
+                                child: Text(
+                                  _isLoading ? "Loading..." : "Refresh",
+                                  style: TextStyle(fontSize: 20.0),
+                                )),
+                            FlatButton(
+                                color: Colors.grey,
+                                textColor: Colors.white,
+                                disabledColor: Colors.grey,
+                                disabledTextColor: Colors.black,
+                                padding: EdgeInsets.all(8.0),
+                                splashColor: Colors.blueAccent,
+                                onPressed: exitApp,
+                                child: Text(
+                                  "Keluar",
+                                  style: TextStyle(fontSize: 20.0),
+                                ))
+                          ],
+                        )
+                      ],
+                    ),
                   )),
-              SizedBox(
-                height: 30.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Column(
                 children: <Widget>[
-                  FlatButton(
-                      color: PrimaryColor,
-                      textColor: Colors.white,
-                      disabledColor: Colors.grey,
-                      disabledTextColor: Colors.black,
-                      padding: EdgeInsets.all(8.0),
-                      splashColor: Colors.blueAccent,
-                      onPressed: _updateUser,
-                      child: Text(
-                        "Simpan",
-                        style: TextStyle(fontSize: 20.0),
-                      )),
-                  FlatButton(
-                      color: Colors.grey,
-                      textColor: Colors.white,
-                      disabledColor: Colors.grey,
-                      disabledTextColor: Colors.black,
-                      padding: EdgeInsets.all(8.0),
-                      splashColor: Colors.blueAccent,
-                      onPressed: exitApp,
-                      child: Text(
-                        "Keluar",
-                        style: TextStyle(fontSize: 20.0),
-                      ))
+                  Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 60,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Text('Error: ${snapshot.error}'),
+                  )
                 ],
-              )
-            ],
-          ),
-        ));
+              ),
+            );
+          } else {
+            return Center(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    child: CircularProgressIndicator(),
+                    width: 60,
+                    height: 60,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text('Mohon tunggu...'),
+                  )
+                ],
+              ),
+            );
+          }
+        });
   }
 
-  _updateUser() {
-    print("Update user ayodolan!");
+  Future<void> _updateUser() async {
+    if (_isLoading) {
+      print('Masih Proses...');
+      return false;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+    var datarow = {
+      'name': inputName.text,
+      'email': inputEmail.text,
+      'phone': inputPhone.text,
+      'address': inputAddress.text,
+      'born': inputBorn.text
+    };
+
+    var res = await CallApi().postDataAuth(datarow, 'user-update');
+
+    print(res.statusCode);
+
+    if (res.statusCode == 200) {
+      var body = json.decode(res.body.toString());
+      if (body['status']) {
+        _showMsg(body['message']);
+      } else {
+        _showMsg(body['message']);
+      }
+    } else {
+      throw Exception('Failed to load internet');
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   exitApp() {
@@ -200,6 +316,20 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
     );
+  }
+
+  void _reloadData() {
+    setState(() {
+      _isLoading = true;
+    });
+
+    print(_isLoading);
+
+    getJSONData();
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   void _logout() async {

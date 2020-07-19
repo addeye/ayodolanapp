@@ -6,6 +6,7 @@ import 'package:ayodolan/SignUp/signUpScreen.dart';
 import 'package:ayodolan/api/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class LogIn extends StatefulWidget {
   String title;
   LogIn({Key key, this.title}) : super(key: key);

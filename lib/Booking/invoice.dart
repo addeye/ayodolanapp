@@ -6,6 +6,7 @@ import 'package:ayodolan/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// ignore: must_be_immutable
 class Invoice extends StatefulWidget {
   String transkasiId;
   Invoice({Key key, @required this.transkasiId}) : super(key: key);
@@ -145,10 +146,7 @@ class _InvoiceState extends State<Invoice> {
                   child: const Text('Kembali Ke Awal',
                       style: TextStyle(color: Colors.white)),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => HomePage()));
+                    Navigator.of(context).popUntil((route) => route.isFirst);
                   },
                 ),
               ],
