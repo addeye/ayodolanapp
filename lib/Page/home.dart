@@ -43,14 +43,35 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
-          height: 46,
+          height: 60,
           color: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              iconBtnAppbar(Icon(Icons.home), "Home", 0),
-              iconBtnAppbar(Icon(Icons.library_books), "My Booking", 1),
-              iconBtnAppbar(Icon(Icons.person), "Profile", 2),
+              iconBtnAppbar(
+                  Icon(
+                    Icons.home,
+                    color: curridx == 0 ? PrimaryColor : Colors.grey,
+                    size: curridx == 0 ? 35.0 : 25.0,
+                  ),
+                  "Home",
+                  0),
+              iconBtnAppbar(
+                  Icon(
+                    Icons.library_books,
+                    color: curridx == 1 ? PrimaryColor : Colors.grey,
+                    size: curridx == 1 ? 35.0 : 25.0,
+                  ),
+                  "My Booking",
+                  1),
+              iconBtnAppbar(
+                  Icon(
+                    Icons.person,
+                    color: curridx == 2 ? PrimaryColor : Colors.grey,
+                    size: curridx == 2 ? 35.0 : 25.0,
+                  ),
+                  "Profile",
+                  2),
             ],
           ),
         ),
