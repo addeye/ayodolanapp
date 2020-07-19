@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CallApi {
 
-  final String _url =  'https://dfa7fc24b000.ngrok.io/api/';
+  final String _url =  'https://47ab8b30b7d1.ngrok.io/api/';
 
 
   postData(data, apiUrl) async {
