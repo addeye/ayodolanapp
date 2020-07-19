@@ -175,6 +175,7 @@ class PaketDetail extends StatelessWidget {
   }
 
   Widget _hotel() {
+    print(paket);
     return Card(
       child: Container(
         padding: EdgeInsets.all(20.0),
@@ -191,7 +192,19 @@ class PaketDetail extends StatelessWidget {
                 ),
               ],
             ),
-            Text(paket['deskripsi_paket'].toString())
+            Row(
+              children: <Widget>[
+                Text(
+                  paket['hotel']['nama'].toString(),
+                  style: TextStyle(fontSize: 16.0),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Text(paket['hotel']['alamat'].toString()),
+              ],
+            )
           ],
         ),
       ),
@@ -215,8 +228,50 @@ class PaketDetail extends StatelessWidget {
                 ),
               ],
             ),
-            Text(paket['deskripsi_paket'].toString())
+            Column(
+              children: [
+                for (var i in paket['detail_paket_wisata'])
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 0.0, vertical: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        _showImage(i['gambar']),
+                        Column(
+                          children: <Widget>[
+                            Text(
+                              i['wisata'],
+                              style: TextStyle(fontSize: 16.0),
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text(i['mulai'] + ' - ' + i['selesai'])
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+              ],
+            )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _showImage(photo) {
+    return Container(
+      margin: EdgeInsets.only(right: 10.0),
+      width: 80.0,
+      height: 80.0,
+      decoration: new BoxDecoration(
+        color: const Color(0xff7c94b6),
+        image: new DecorationImage(
+          image: new NetworkImage(photo),
+          fit: BoxFit.cover,
         ),
       ),
     );

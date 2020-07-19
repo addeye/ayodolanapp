@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ayodolan/Booking/booking.dart';
 import 'package:ayodolan/Booking/detail_paket.dart';
 import 'package:ayodolan/Contants.dart';
 import 'package:ayodolan/api/api.dart';
@@ -75,7 +76,12 @@ class _PaketState extends State<Paket> {
               color: PrimaryColor,
               child:
                   const Text('Booking', style: TextStyle(color: Colors.white)),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Booking(paket: item)));
+              },
             ),
             FlatButton(
               color: PrimaryColor,
