@@ -4,12 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CallApi {
-<<<<<<< HEAD
 
-  final String _url =  'https://47ab8b30b7d1.ngrok.io/api/';
-=======
-  final String _url = 'https://cc317dd641c1.ngrok.io/api/';
->>>>>>> abfa92be30f7d9d8c96de4a21a64f238727bca5c
+
+  final String _url =  'https://096bd1a668f0.ngrok.io/api/';
 
   postData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;

@@ -1,7 +1,7 @@
 import 'package:ayodolan/Agenda/agendapage.dart';
 import 'package:ayodolan/Booking/paket.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ayodolan/Wisata/wisataPage.dart';
 class Menu extends StatelessWidget {
   const Menu({Key key}) : super(key: key);
 
@@ -26,6 +26,14 @@ class Menu extends StatelessWidget {
             press: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AgendaPage()));
+            },
+          ),
+          buildMenu(
+            setIcon: Icon(Icons.calendar_today),
+            text: "Wisata",
+            press: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => WisataPage()));
             },
           ),
         ],

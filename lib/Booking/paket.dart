@@ -108,7 +108,7 @@ class _PaketState extends State<Paket> {
         appBar: AppBar(
           backgroundColor: PrimaryColor,
           elevation: 1.0,
-          title: Text("Paket"),
+          title: Text("Paket Wisata"),
         ),
         body: _buildListView());
   }
