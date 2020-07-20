@@ -7,6 +7,7 @@ import 'package:ayodolan/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -32,6 +33,19 @@ class _ProfilePageState extends State<ProfilePage> {
   //   });
   //   setStatus('');
   // }
+  DateTime selectedDate = DateTime.now();
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1980),
+        lastDate: DateTime.now());
+    if (picked != null) {
+      selectedDate = picked;
+      inputBorn.text = _formatdate(picked);
+    }
+  }
 
   Widget _showImage(photo) {
     return Container(
@@ -152,6 +166,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               hintStyle: TextStyle(color: PrimaryColor)),
                         ),
                         TextField(
+                          readOnly: true,
+                          onTap: () {
+                            _selectDate(context);
+                          },
                           controller: inputBorn,
                           decoration: InputDecoration(
                               icon: Icon(Icons.date_range),
@@ -352,5 +370,10 @@ class _ProfilePageState extends State<ProfilePage> {
     } else {
       _showMsg(body['message']);
     }
+  }
+
+  String _formatdate(tdate) {
+    String formattedDate = DateFormat('dd-MM-yyyy').format(tdate);
+    return formattedDate;
   }
 }
