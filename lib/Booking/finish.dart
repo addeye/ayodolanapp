@@ -5,18 +5,20 @@ import 'package:ayodolan/Contants.dart';
 import 'package:ayodolan/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class FinishBooking extends StatefulWidget {
   dynamic paket;
-  String tanggal_liburan;
-  String jumlah_peserta;
+
+  String tanggalLiburan;
+
+  String jumlahPeserta;
 
   FinishBooking(
       {Key key,
       @required this.paket,
-      @required this.tanggal_liburan,
-      @required this.jumlah_peserta})
+      @required this.tanggalLiburan,
+      @required this.jumlahPeserta})
       : super(key: key);
 
   @override
@@ -28,18 +30,16 @@ class _FinishBookingState extends State<FinishBooking> {
   int total;
   String count;
   String tgl;
-  bool _isLoading = false;
 
   final formatter =
       NumberFormat.currency(locale: 'ID', customPattern: '\u00a4 #,###');
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     this.data = widget.paket;
-    this.count = widget.jumlah_peserta;
-    this.tgl = widget.tanggal_liburan;
+    this.count = widget.jumlahPeserta;
+    this.tgl = widget.tanggalLiburan;
     this.total = this.data['harga_final_r'] * int.parse(this.count);
     print('count ' + this.count);
     print('total ' + this.total.toString());
@@ -204,9 +204,7 @@ class _FinishBookingState extends State<FinishBooking> {
   }
 
   void _paynow() async {
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() {});
 
     var datarow = {
       'paket_id': data['id'].toString(),
@@ -232,8 +230,6 @@ class _FinishBookingState extends State<FinishBooking> {
       _showMsg(body['message']);
     }
 
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() {});
   }
 }

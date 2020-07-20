@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class Booking extends StatefulWidget {
   dynamic paket;
 
@@ -16,8 +17,8 @@ class Booking extends StatefulWidget {
 class _BookingState extends State<Booking> {
   dynamic data;
 
-  TextEditingController tgl_liburan = TextEditingController();
-  TextEditingController jumlah_peserta = TextEditingController();
+  TextEditingController tglLiburan = TextEditingController();
+  TextEditingController jumlahPeserta = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
 
@@ -30,16 +31,15 @@ class _BookingState extends State<Booking> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
-        tgl_liburan.text = _formatdate(picked);
+        tglLiburan.text = _formatdate(picked);
       });
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     this.data = widget.paket;
     super.initState();
-    tgl_liburan.text = _formatdate(selectedDate.toLocal());
+    tglLiburan.text = _formatdate(selectedDate.toLocal());
   }
 
   @override
@@ -89,7 +89,7 @@ class _BookingState extends State<Booking> {
                 _selectDate(context);
               },
               style: TextStyle(color: Color(0xFF000000)),
-              controller: tgl_liburan,
+              controller: tglLiburan,
               cursorColor: Color(0xFF9b9b9b),
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -107,7 +107,7 @@ class _BookingState extends State<Booking> {
             TextField(
               inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               style: TextStyle(color: Color(0xFF000000)),
-              controller: jumlah_peserta,
+              controller: jumlahPeserta,
               cursorColor: Color(0xFF9b9b9b),
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -140,8 +140,8 @@ class _BookingState extends State<Booking> {
                 MaterialPageRoute(
                     builder: (context) => FinishBooking(
                         paket: data,
-                        tanggal_liburan: tgl_liburan.text,
-                        jumlah_peserta: jumlah_peserta.text)));
+                        tanggalLiburan: tglLiburan.text,
+                        jumlahPeserta: jumlahPeserta.text)));
           },
         ));
   }

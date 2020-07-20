@@ -18,6 +18,7 @@ void main() {
   ));
 }
 
+// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   String title;
   HomePage({Key key, this.title}) : super(key: key);

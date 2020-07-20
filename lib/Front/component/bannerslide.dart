@@ -9,7 +9,7 @@ class Bannerslide extends StatefulWidget {
 class _BannerslideState extends State<Bannerslide> {
   @override
   Widget build(BuildContext context) {
-    Widget image_carousel = new Container(
+    Widget imageCarousel = new Container(
         height: 200.0,
         child: CarouselSlider(
           // height: 400.0,
@@ -52,7 +52,7 @@ class _BannerslideState extends State<Bannerslide> {
     return Container(
       child: new Column(
         children: <Widget>[
-          image_carousel,
+          imageCarousel,
         ],
       ),
     );
