@@ -13,8 +13,8 @@ class Menu extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           buildMenu(
-            setIcon: Icon(Icons.beach_access),
-            text: "Paket",
+            setIcon: Icon(Icons.airplanemode_active),
+            text: "Paket Wisata",
             press: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Paket()));
@@ -22,15 +22,15 @@ class Menu extends StatelessWidget {
           ),
           buildMenu(
             setIcon: Icon(Icons.calendar_today),
-            text: "Agenda",
+            text: "Agenda Kota",
             press: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AgendaPage()));
             },
           ),
           buildMenu(
-            setIcon: Icon(Icons.calendar_today),
-            text: "Wisata",
+            setIcon: Icon(Icons.beach_access),
+            text: " Objek Wisata",
             press: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => WisataPage()));

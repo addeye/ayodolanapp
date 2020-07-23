@@ -1,6 +1,7 @@
 import 'package:ayodolan/Agenda/agendapage.dart';
 import 'package:ayodolan/Booking/paket.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Menu extends StatelessWidget {
   const Menu({Key key}) : super(key: key);
@@ -21,7 +22,7 @@ class Menu extends StatelessWidget {
             },
           ),
           buildMenu(
-            setIcon: Icon(Icons.calendar_today),
+            setIcon: Icon(MdiIcons.beach),
             text: "Agenda",
             press: () {
               Navigator.push(context,

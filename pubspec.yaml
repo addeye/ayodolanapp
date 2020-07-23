@@ -35,7 +35,7 @@ dependencies:
   http: any
   image_picker: ^0.6.7+4
   shared_preferences:
-
+  material_design_icons_flutter: ^3.2.2895
 dev_dependencies:
   flutter_test:
     sdk: flutter

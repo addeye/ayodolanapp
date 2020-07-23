@@ -68,26 +68,7 @@ class WisataDetail extends StatelessWidget {
               child: Text(item['deskripsi']),
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            child: Row(
-              children: <Widget>[
-                ListTile(
-                  // leading: Icon(Icons.info),
-                  title: Text(
-                    item['nama_wisata'],
-                    style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                        color: PrimaryColor),
-                  ),
-                  subtitle: Text(
-                      item['tipe_wisata']
-                  ),
-                ),
-              ],
-            ),
-          )
+
         ],
       ),
     );
