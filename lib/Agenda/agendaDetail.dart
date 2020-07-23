@@ -21,15 +21,8 @@ class AgendaDetail extends StatelessWidget {
             margin: const EdgeInsets.all(4),
             child: Column(
               children: [
-                new CachedNetworkImage(
-                  imageUrl: event['gambar_event'],
-                  placeholder: (context, url) =>
-                      new CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => new Icon(Icons.error),
-                  fadeOutDuration: new Duration(seconds: 1),
-                  fadeInDuration: new Duration(seconds: 3),
-                ),
                 _info(event),
+                _photo(event)
                 // _description(),
                 // _mobil(),
                 // _hotel(),
@@ -70,6 +63,54 @@ class AgendaDetail extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  Widget _photo(item) {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    'Gambar Detail Agenda',
+                    style: TextStyle(fontSize: 18.0, color: PrimaryColor),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                for (var i in item['gambar_detail'])
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 0.0, vertical: 10.0),
+                    child: Column(
+                      children: <Widget>[
+                        _showImage(i),
+                      ],
+                    ),
+                  ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _showImage(photo) {
+    return new CachedNetworkImage(
+      imageUrl: photo,
+      placeholder: (context, url) => new CircularProgressIndicator(),
+      errorWidget: (context, url, error) => new Icon(Icons.error),
+      fadeOutDuration: new Duration(seconds: 1),
+      fadeInDuration: new Duration(seconds: 3),
     );
   }
 }

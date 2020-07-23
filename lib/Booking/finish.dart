@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:ayodolan/Booking/invoice.dart';
 import 'package:ayodolan/Contants.dart';
@@ -40,9 +41,22 @@ class _FinishBookingState extends State<FinishBooking> {
     this.data = widget.paket;
     this.count = widget.jumlahPeserta;
     this.tgl = widget.tanggalLiburan;
-    this.total = this.data['harga_final_r'] * int.parse(this.count);
+
+    print(this.data['percent_margin']);
+
+    int total_harga_liburan =
+        this.data['harga_final_r'] * int.parse(this.count);
+    int total_sub = total_harga_liburan +
+        this.data['harga_supir_r'] +
+        this.data['harga_tour_guide_r'];
+    int total_final = (total_sub * int.parse('120')) ~/ int.parse('100');
+
+    this.total = total_final;
+
     print('count ' + this.count);
-    print('total ' + this.total.toString());
+    print('total ' + this.data['harga_final_r'].toString());
+
+    print(this.total);
   }
 
   _showMsg(msg) {
@@ -215,12 +229,12 @@ class _FinishBookingState extends State<FinishBooking> {
       'harga_tour_guide': data['harga_tour_guide'],
       'harga_paket': data['harga_paket'],
     };
-    // print(datarow);
+    print(datarow);
     var res = await CallApi().postDataAuth(datarow, 'invoice');
     var body = json.decode(res.body.toString());
     print(body);
     if (body['status']) {
-      Navigator.popUntil(context, (route) => route.isFirst);
+      // Navigator.popUntil(context, (route) => route.isFirst);
       Navigator.push(
           context,
           MaterialPageRoute(

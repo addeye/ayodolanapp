@@ -248,7 +248,7 @@ class PaketDetail extends StatelessWidget {
                               children: <Widget>[
                                 Text(i['mulai'] + ' - ' + i['selesai'])
                               ],
-                            )
+                            ),
                           ],
                         )
                       ],

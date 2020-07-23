@@ -158,7 +158,7 @@ class _InvoiceState extends State<Invoice> {
   }
 
   _launchURL() async {
-    const url = 'https://flutter.dev';
+    const url = 'https://wa.me/6287751982393';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
