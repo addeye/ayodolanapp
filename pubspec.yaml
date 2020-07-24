@@ -32,6 +32,7 @@ dependencies:
   cached_network_image: ^2.2.0
   intl: ^0.16.1
   url_launcher: ^5.5.0
+  flutter_svg: ^0.17.4
   http: any
   image_picker: ^0.6.7+4
   shared_preferences:
@@ -39,6 +40,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -53,8 +55,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-assets:
-  - images/default-user.png
+  assets:
+    - images/default-user.png
+    - assets/trip.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -67,10 +70,10 @@ assets:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: FugazOne
+      fonts:
+        - asset: fonts/FugazOne-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
