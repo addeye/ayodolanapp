@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:ayodolan/Contants.dart';
 import 'package:ayodolan/Page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:ayodolan/SignUp/signUpScreen.dart';
 import 'package:ayodolan/api/api.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
@@ -45,11 +47,11 @@ class _LogInState extends State<LogIn> {
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0.0, 0.4, 0.9],
+                  end: Alignment.bottomLeft,
+                  stops: [0.3, 0.9],
                   colors: [
-                    Color(0xFFFF835F),
-                    Color(0xFFFC663C),
+                    Color(0xFFFBE9E7),
+                    // Color(0xFFFF8A65),
                     Color(0xFFFF3F1A),
                   ],
                 ),
@@ -62,6 +64,22 @@ class _LogInState extends State<LogIn> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Container(
+                      child: SvgPicture.asset(
+                        'assets/trip.svg',
+                        width: 250.0,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(30.0),
+                      child: Text(
+                        'Ayo Dolan Apps',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 35.0,
+                            fontFamily: 'FugazOne'),
+                      ),
+                    ),
                     Card(
                       elevation: 4.0,
                       color: Colors.white,
@@ -73,8 +91,6 @@ class _LogInState extends State<LogIn> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            /////  Email/////
-
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
                               controller: email,
@@ -92,9 +108,6 @@ class _LogInState extends State<LogIn> {
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
-
-                            //////password/////
-
                             TextField(
                               style: TextStyle(color: Color(0xFF000000)),
                               cursorColor: Color(0xFF9b9b9b),
@@ -113,7 +126,6 @@ class _LogInState extends State<LogIn> {
                                     fontWeight: FontWeight.normal),
                               ),
                             ),
-                            //////LogIn Botton/////
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: FlatButton(
