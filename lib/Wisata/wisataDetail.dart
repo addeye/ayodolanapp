@@ -123,7 +123,7 @@ class WisataDetail extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10.0),
                   child: Text(
-                    'Gambar Detail Agenda',
+                    'Gambar Detail Objek Wisata',
                     style: TextStyle(fontSize: 18.0, color: PrimaryColor),
                   ),
                 ),
