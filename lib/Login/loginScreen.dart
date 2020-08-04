@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:ayodolan/Contants.dart';
 import 'package:ayodolan/Page/home.dart';
 import 'package:flutter/material.dart';
 import 'package:ayodolan/SignUp/signUpScreen.dart';

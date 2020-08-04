@@ -58,6 +58,8 @@ flutter:
   assets:
     - images/default-user.png
     - assets/trip.svg
+    - assets/navigation.svg
+    - assets/empty.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
