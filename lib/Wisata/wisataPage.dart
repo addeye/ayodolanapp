@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:ayodolan/Wisata/wisataCari.dart';
 import 'package:ayodolan/Wisata/wisataDetail.dart';
-import 'package:ayodolan/Contants.dart';
+import 'package:ayodolan/Account/Contants.dart';
 import 'package:ayodolan/api/api.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';

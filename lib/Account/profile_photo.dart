@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ayodolan/Account/profile_page.dart';
-import 'package:ayodolan/Contants.dart';
+import 'package:ayodolan/Account/Contants.dart';
 import 'package:ayodolan/Page/home.dart';
 import 'package:ayodolan/api/api.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:ayodolan/Contants.dart';
+import 'package:ayodolan/Account/Contants.dart';
 import 'package:flutter/material.dart';
 
 class WisataCari extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:ayodolan/Account/profile_photo.dart';
-import 'package:ayodolan/Contants.dart';
+import 'package:ayodolan/Account/Contants.dart';
 import 'package:ayodolan/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
